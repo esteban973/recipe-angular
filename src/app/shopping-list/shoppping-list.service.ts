@@ -2,7 +2,7 @@ import { Ingredient } from '../models/ingredient.model';
 
 export class ShoppingListService {
 
-    shoppingList = new Array<any>();
+    shoppingList = new Array<{'ingredient' : Ingredient, 'qty' : number}>();
 
     constructor() {
         const ingredients = [new Ingredient('Beurre'), new Ingredient('Farine')];
@@ -15,7 +15,7 @@ export class ShoppingListService {
         console.log(ingredientName);
          for (const shoppingItem of this.shoppingList) {
             if (shoppingItem.ingredient.name.toUpperCase() === ingredientName.toUpperCase()) {
-              shoppingItem.qty += Number(qty);
+              shoppingItem.qty = Number(qty) + Number(shoppingItem.qty);
               return;
             }
          }

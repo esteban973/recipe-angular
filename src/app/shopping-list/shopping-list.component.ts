@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Ingredient } from '../models/ingredient.model';
 import { ShoppingListService } from './shoppping-list.service';
 
@@ -9,7 +10,7 @@ import { ShoppingListService } from './shoppping-list.service';
 })
 export class ShoppingListComponent implements OnInit {
 
-
+  @ViewChild('newShoppingForm') newShoppingForm: NgForm;
 
   shoppingList = new Array<any>();
 
@@ -29,6 +30,13 @@ export class ShoppingListComponent implements OnInit {
     this.shoppingListService.substractShoppingList(ingredientName, qty);
  }
 
+
+
+ 
+ addNewIngredient(){
+    this.shoppingListService.addShoppingList(this.newShoppingForm.value.ingredientName, this.newShoppingForm.value.ingredientQty);
+    this.newShoppingForm.reset();
+ }
 
  removeShoppingList(ingredientName: string) {
   this.shoppingListService.removeShoppingList(ingredientName);

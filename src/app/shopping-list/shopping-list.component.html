@@ -6,16 +6,34 @@
     <div class="row">
         <div class="col-sm-12">
 
+                <form (ngSubmit)="addNewIngredient()" #newShoppingForm="ngForm">
+                    <div class="form-group has-feedback" [ngClass]="{'has-error' : ingredientName.invalid && ingredientName.touched}">
+                        <label class="control-label" for="ingredientName">Ingredient</label>
+                        <input #ingredientName="ngModel" name="ingredientName" type="text" class="form-control" ngModel placeholder="Ingredient name" required minlength="3"/>
+                        <span *ngIf="ingredientName.invalid && ingredientName.touched" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                        <span *ngIf="ingredientName.invalid && ingredientName.touched" class="help-block">
+                            <span *ngIf="ingredientName.hasError('required')">Ce champ est requis</span>
+                            <span *ngIf="ingredientName.hasError('minlength')">Pas assez de caractère</span>
+                            
+                        </span>  
+                    </div>
 
-                <div class="form-group">
-                        <input #ingredientName type="text" class="form-control" placeholder="Ingredient name"/>
-                    </div>
-                    <div class="form-group">
-                      <input #ingredientQty type="number"  class="form-control" placeholder="Qty"/>
-                    </div>
+                    <div class="form-group has-feedback" [ngClass]="{'has-error' : ingredientQty.invalid && ingredientQty.touched}">
+                            <label class="control-label" for="ingredientQty">Qty</label>
+                            <input #ingredientQty="ngModel" name="ingredientQty" type="number" class="form-control" ngModel placeholder="Ingredient qty" required pattern="[0-9]*"/>
+                            <span *ngIf="ingredientQty.invalid && ingredientQty.touched" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                            <span *ngIf="ingredientQty.invalid && ingredientQty.touched" class="help-block">
+                                <span *ngIf="ingredientQty.hasError('required')">Ce champ est requis</span>
+                                <span *ngIf="ingredientQty.hasError('pattern')">Mauvais pattern</span>
+                            </span>  
+                        </div>
+
                   <div class="btn btn-group">
-                    <button class="btn btn-success" (click)="addShoppingList(ingredientName.value, ingredientQty.value)">Ajouter</button>
+                    <button class="btn btn-success" [disabled]='newShoppingForm.invalid' type="submit">Ajouter</button>
+                    <button class="btn btn-primary" (click)='newShoppingForm.reset()' type="button">Réinitialiser</button>
                   </div>
+                </form>
+                
 
                   <hr/>
 
