@@ -1,0 +1,25 @@
+<h2>
+    {{recipe.name}}
+</h2>
+
+
+
+<img class="img-responsive center-block" [src]='recipe.imagePath' />
+<div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" appDropdown>
+                Action <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+            <li> <a [routerLink]="['/recipes', id, 'edit']">Edit</a></li>
+            <li> <a (click)='addToShoppingList()'>Add to shopping List</a></li>
+            </ul>
+  </div>
+<hr/>
+<h3>Description</h3>
+
+<p>{{recipe.description}}</p>
+<h4>Ingredients</h4>
+<ul *ngFor='let ingredient of recipe.ingredients'>
+    <li>{{ingredient.ingredient.name}} {{ingredient.qty}}</li>
+</ul>
+<hr/>

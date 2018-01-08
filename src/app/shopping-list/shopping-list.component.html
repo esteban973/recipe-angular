@@ -1,0 +1,33 @@
+
+
+ 
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+
+
+                <div class="form-group">
+                        <input #ingredientName type="text" class="form-control" placeholder="Ingredient name"/>
+                    </div>
+                    <div class="form-group">
+                      <input #ingredientQty type="number"  class="form-control" placeholder="Qty"/>
+                    </div>
+                  <div class="btn btn-group">
+                    <button class="btn btn-success" (click)="addShoppingList(ingredientName.value, ingredientQty.value)">Ajouter</button>
+                  </div>
+
+                  <hr/>
+
+                <div class="list-group" *ngFor="let shoppingItem of shoppingList">
+                        <div class="list-group-item"> {{shoppingItem.ingredient.name}} <span class="label label-default">{{shoppingItem.qty}}</span>
+                            <div class="pull-right">
+                                <a (click)="addShoppingList(shoppingItem.ingredient.name, 1)" class="btn btn-xs btn-primary"><i  class="glyphicon glyphicon-plus"></i></a>
+                                <a (click)="substractShoppingList(shoppingItem.ingredient.name, 1)" class="btn btn-xs btn-info"><i  class="glyphicon glyphicon-minus"></i></a>
+                                <a (click)="removeShoppingList(shoppingItem.ingredient.name)" class="btn btn-xs btn-danger"><i  class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div> 
+                </div>
+        </div>
+    </div>
+</div>

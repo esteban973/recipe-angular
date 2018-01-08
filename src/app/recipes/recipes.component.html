@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4">
+        <div class="row">
+            <div class="col-xs-12">
+              <a class="btn btn-block btn-primary" [routerLink]="['/recipes', 'add']">
+                Add a new recipe
+              </a>
+            </div>
+          </div>
+          <hr/>
+        <app-recipes-list></app-recipes-list>
+    </div>
+    <div class="col-sm-8">
+        <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
