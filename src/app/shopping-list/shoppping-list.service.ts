@@ -16,6 +16,11 @@ export class ShoppingListService {
         }
       }
 
+      /**
+       * 
+       * @param ingredientName 
+       * @param qty 
+       */
       addShoppingList(ingredientName: string, qty: number) {
          for (const shoppingItem of this.shoppingList) {
             if (shoppingItem.ingredient.name.toUpperCase() === ingredientName.toUpperCase()) {
@@ -29,8 +34,18 @@ export class ShoppingListService {
          this.shoppingListUpdated.next(this.shoppingList.slice());
       }
 
+    /**
+     * 
+     */
+     getShoppingItemById(indexId: number) {
+       return this.shoppingList[indexId];
+     }
 
-     
+
+     updateShoppingList(indexId: number, ingredientShopping :{'ingredient': Ingredient, 'qty': number}){
+        this.shoppingList[indexId]=ingredientShopping;
+        this.shoppingListUpdated.next(this.shoppingList.slice());
+     }
 
 
 
@@ -43,7 +58,11 @@ export class ShoppingListService {
        this.shoppingListUpdated.next(this.shoppingList.slice());
     }
 
-
+    /**
+     * 
+     * @param ingredientId 
+     * @param qty 
+     */
     changeQtyShoppingList(ingredientId: number, qty: number) {
        this.shoppingList[ingredientId].qty += qty;
            if ( this.shoppingList[ingredientId].qty < 0 ) {

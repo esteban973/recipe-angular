@@ -3,6 +3,7 @@ import { Recipe } from '../../models/recipe.model';
 import { RecipeService } from './../recipe.service';
 import { ShoppingListService } from '../../shopping-list/shoppping-list.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { FlashService} from '../../flash.service';
 
 @Component({
   selector: 'app-recipes-detail',
@@ -17,7 +18,7 @@ export class RecipesDetailComponent implements OnInit {
 
   recipeTmp: Recipe;
 
-  constructor(private recipeService: RecipeService, private routeActivated: ActivatedRoute) {
+  constructor(private recipeService: RecipeService, private routeActivated: ActivatedRoute, private flashService: FlashService) {
 
   }
 
@@ -32,19 +33,12 @@ export class RecipesDetailComponent implements OnInit {
 
   }
 
-  /*toggleEditMode() {
-    if (this.editMode) {
-      this.recipe.name = this.recipeTmp.name;
-      this.recipe.description = this.recipeTmp.description;
-    } else {
-      this.recipeTmp = new Recipe(this.recipe.name, this.recipe.description, this.recipe.imagePath);
-    }
-    this.editMode = !this.editMode;
-  }*/
+ 
 
 
   addToShoppingList() {
     this.recipeService.addToTheShoopingList(this.recipe);
+    this.flashService.flashBag.next('Les ingérdients ont été rajoutés');
   }
 
 

@@ -37,10 +37,15 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  editItemIndex(id) {
+  editShoppingListItem(id: number) {
     this.editMode = true;
-    this.editItemIndex = id;
-    
+    this.newShoppingForm.reset();
+    this.editItemId = id;
+    let shoppingItem = this.shoppingListService.getShoppingItemById(id);
+    this.newShoppingForm.setValue({
+      ingredientName : shoppingItem.ingredient.name,
+      ingredientQty : shoppingItem.qty
+    });
   }
 
 
@@ -55,13 +60,21 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
 
  addNewIngredient() {
+   if(this.editMode){
+    this.shoppingListService.updateShoppingList(this.editItemId, {ingredient : new Ingredient(this.newShoppingForm.value.ingredientName), qty : this.newShoppingForm.value.ingredientQty }  );
+   } else {
     this.shoppingListService.addShoppingList(this.newShoppingForm.value.ingredientName, this.newShoppingForm.value.ingredientQty);
+   }
+    
+    this.editMode=false;
     this.newShoppingForm.reset();
  }
 
 
  removeShoppingList(indexIngredient: number) {
     this.shoppingListService.removeShoppingListById(indexIngredient);
+    this.editMode=false;
+    this.newShoppingForm.reset();
  }
 
 

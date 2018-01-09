@@ -29,7 +29,8 @@
                         </div>
 
                   <div class="btn btn-group">
-                    <button class="btn btn-success" [disabled]='newShoppingForm.invalid' type="submit">Ajouter</button>
+                    <button class="btn btn-success" [disabled]='newShoppingForm.invalid' type="submit" [textContent]="editMode ?  'Editer' : 'Ajouter'"></button>
+                    <button class="btn btn-danger" (click)='removeShoppingList(editItemId)' *ngIf="editMode" type="button">Supprimer</button>
                     <button class="btn btn-primary" (click)='newShoppingForm.reset()' type="button">Réinitialiser</button>
                   </div>
                 </form>
@@ -40,6 +41,7 @@
                 <div class="list-group" *ngFor="let shoppingItem of shoppingList; let indexIngredient = index">
                         <div class="list-group-item"> {{shoppingItem.ingredient.name}} <span class="label label-default">{{shoppingItem.qty}}</span>
                             <div class="pull-right">
+                                 <a (click)="editShoppingListItem(indexIngredient)" class="btn btn-xs btn-primary"><i  class="glyphicon glyphicon-pencil"></i></a>         
                                 <a (click)="changeQtyShoppingList(indexIngredient, 1)" class="btn btn-xs btn-primary"><i  class="glyphicon glyphicon-plus"></i></a>
                                 <a (click)="changeQtyShoppingList(indexIngredient.name, -1)" class="btn btn-xs btn-info"><i  class="glyphicon glyphicon-minus"></i></a>
                                 <a (click)="removeShoppingList(indexIngredient)" class="btn btn-xs btn-danger"><i  class="glyphicon glyphicon-remove"></i></a>
