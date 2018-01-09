@@ -40,7 +40,6 @@ export class RecipeService implements OnInit {
 
 
     addToTheShoopingList(recipe: Recipe)  {
-        console.log(recipe);
         for (const ingredient of recipe.ingredients) {
             this.shoppingListService.addShoppingList(ingredient.ingredient.name, ingredient.qty);
         }
