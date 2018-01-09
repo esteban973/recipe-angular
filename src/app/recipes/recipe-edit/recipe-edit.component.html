@@ -1,17 +1,35 @@
-<div class="form">
-    <div class="form-group">
-      <label>Titre</label>
-    <input [(ngModel)]="recipeTmp.name" class="form-control"/>
+<form [formGroup]="recipeForm" (ngSubmit)="saveRecipe()" >
+
+  <div class="form">
+      <div class="form-group has-feedback" [ngClass]="{'has-error' : recipeForm.get('recipeName').invalid && recipeForm.get('recipeName').touched}">
+        <label>Titre</label>
+      <input name='recipeName' formControlName='recipeName' class="form-control" type="text"/>
+    </div>
+    <div class="form-group has-feedback" [ngClass]="{'has-error' : recipeForm.get('recipeUrl').invalid && recipeForm.get('recipeUrl').touched}">
+        <label>Url</label>
+      <input name='recipeUrl' formControlName='recipeUrl' class="form-control" type="text"/>
+    </div>
+    <div class="form-group has-feedback" [ngClass]="{'has-error' : recipeForm.get('recipeDescription').invalid && recipeForm.get('recipeDescription').touched}">
+      <label>Description</label>
+        <textarea name='recipeDescription' formControlName='recipeDescription' class="form-control"></textarea>
+    </div>
+      <div formArrayName="ingredients">
+          <div
+            class="form-group"
+            *ngFor="let ingredient of recipeForm.get('ingredients').controls; let i = index" [formGroupName]="i">
+          <div class="row">
+            <div class="col-sm-5"><input type="text" class="form-control" formControlName="ingredientName"></div>
+            <div class="col-sm-5"><input type="text" class="form-control" formControlName="ingredientQty"></div>
+            <div class="col-sm-2"></div>
+          </div>
+            
+            
+          </div>
+        </div>
+
+
+    <div class="">
+      <button class="btn btn-primary" type="submit" [textContent]="recipe === undefined ? 'Ajouter' : 'Enregistrer'" [disabled]="recipeForm.invalid"></button>
+    </div>
   </div>
-  <div class="form-group">
-      <label>Url</label>
-    <input [(ngModel)]="recipeTmp.imagePath" class="form-control"/>
-  </div>
-  <div class="form-group">
-    <label>Description</label>
-      <textarea [(ngModel)]="recipeTmp.description" class="form-control"></textarea>
-  </div>
-  <div class="">
-    <button class="btn btn-primary" (click)="saveRecipe()" [textContent]="recipe === undefined ? 'Ajouter' : 'Enregistrer'"></button>
-  </div>
-</div>
+</form>
