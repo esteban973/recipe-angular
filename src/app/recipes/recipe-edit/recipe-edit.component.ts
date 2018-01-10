@@ -61,8 +61,7 @@ export class RecipeEditComponent implements OnInit {
 
 
   addNewIngredient(name: string, qty: number){
-    const ingredientArrays = this.recipeForm.get('ingredients') as FormArray;
-    ingredientArrays.push(new FormGroup(
+    (<FormArray>this.recipeForm.get('ingredients')).push(new FormGroup(
         {ingredientName :  new FormControl(name, [Validators.required]),
         ingredientQty :  new FormControl(qty, [Validators.required])
         }
@@ -70,8 +69,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   supprimerIngredient(indexId: number) {
-    const ingredientArrays = <FormArray>this.recipeForm.get('ingredients');
-    ingredientArrays.removeAt(indexId);
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(indexId);
   }
 
 
