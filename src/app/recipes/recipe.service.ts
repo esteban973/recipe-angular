@@ -11,7 +11,7 @@ export class RecipeService implements OnInit {
 
     constructor(private shoppingListService: ShoppingListService) {
         for (let i = 0; i < 5; i++) {
-            const recipe = new Recipe('Test' + i, 'test recipe '+ i, 'https://picsum.photos/800/30' + i + '?random');
+            const recipe = new Recipe('Test' + i, 'test recipe ' + i, 'https://picsum.photos/800/30' + i + '?random');
             recipe.addIngredients('Beurre', this.getRandomIntInclusive(1, 250));
             recipe.addIngredients('Sucre', this.getRandomIntInclusive(1, 250));
             recipe.addIngredients('Oeuf', this.getRandomIntInclusive(1, 6));
@@ -33,15 +33,18 @@ export class RecipeService implements OnInit {
     }
 
 
-    addRecipe(recipe: any) {
-        let recipeTmp=new Recipe(recipe.recipeName, recipe.recipeDescription, recipe.recipeUrl);
-        this.recipes.push(recipeTmp);
-        console.log(this.recipes);
+    addRecipe(recipe: Recipe) {
+        this.recipes.push(recipe);
         return this.recipes.length - 1;
     }
 
-    updateRecipe(idRecipe: number, recipe : any){
+    updateRecipe(idRecipe: number, recipe: Recipe) {
+        this.recipes[idRecipe] = recipe;
+    }
 
+
+    deleteRecipe(idRecipe: number) {
+        this.recipes.splice(idRecipe, 1);
     }
 
 
@@ -57,6 +60,8 @@ export class RecipeService implements OnInit {
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min +1)) + min;
       }
+
+
 
 
 }

@@ -7,8 +7,6 @@ export class ShoppingListService {
 
     shoppingListUpdated = new Subject<Array<{'ingredient': Ingredient, 'qty': number}>>();
 
-  
-
     constructor() {
         const ingredients = [new Ingredient('Beurre'), new Ingredient('Farine')];
         for (const ingredient of ingredients) {
@@ -18,8 +16,8 @@ export class ShoppingListService {
 
       /**
        * 
-       * @param ingredientName 
-       * @param qty 
+       * @param ingredientName
+       * @param qty
        */
       addShoppingList(ingredientName: string, qty: number) {
          for (const shoppingItem of this.shoppingList) {
@@ -43,7 +41,7 @@ export class ShoppingListService {
 
 
      updateShoppingList(indexId: number, ingredientShopping :{'ingredient': Ingredient, 'qty': number}){
-        this.shoppingList[indexId]=ingredientShopping;
+        this.shoppingList[indexId] = ingredientShopping;
         this.shoppingListUpdated.next(this.shoppingList.slice());
      }
 

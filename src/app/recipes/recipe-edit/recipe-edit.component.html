@@ -7,29 +7,39 @@
     </div>
     <div class="form-group has-feedback" [ngClass]="{'has-error' : recipeForm.get('recipeUrl').invalid && recipeForm.get('recipeUrl').touched}">
         <label>Url</label>
-      <input name='recipeUrl' formControlName='recipeUrl' class="form-control" type="text"/>
+      <input name='recipeUrl' formControlName='recipeUrl' class="form-control" type="url"/>
+      
+
+    </div>
+    <div *ngIf="recipeForm.get('recipeUrl').valid">
+      <img src="{{recipeForm.get('recipeUrl').value}}" class="img-responsive center-block"/>
     </div>
     <div class="form-group has-feedback" [ngClass]="{'has-error' : recipeForm.get('recipeDescription').invalid && recipeForm.get('recipeDescription').touched}">
       <label>Description</label>
         <textarea name='recipeDescription' formControlName='recipeDescription' class="form-control"></textarea>
     </div>
       <div formArrayName="ingredients">
-          <div
-            class="form-group"
-            *ngFor="let ingredient of recipeForm.get('ingredients').controls; let i = index" [formGroupName]="i">
-          <div class="row">
-            <div class="col-sm-5"><input type="text" class="form-control" formControlName="ingredientName"></div>
-            <div class="col-sm-5"><input type="text" class="form-control" formControlName="ingredientQty"></div>
-            <div class="col-sm-2"></div>
+        <div class="row">
+          <div class="col-sm-9">
+              <div class="form-group" *ngFor="let ingredient of recipeForm.get('ingredients').controls; let i = index" [formGroupName]="i">
+                  <div class="row">
+                    <div class="col-sm-5"><input type="text" class="form-control" formControlName="ingredientName"></div>
+                    <div class="col-sm-5"><input type="number" class="form-control" formControlName="ingredientQty"></div>
+                    <div class="col-sm-2"><a class="btn btn-danger" (click)='supprimerIngredient(i)'><i class="glyphicon glyphicon-trash"></i></a></div>
+                  </div>
+                </div>
           </div>
-            
-            
+          <div class="col-sm-3">
+              <a class="btn btn-primary" (click)='addNewIngredient()'>Ajouter un ingredient</a>
           </div>
+        </div>
         </div>
 
 
-    <div class="">
-      <button class="btn btn-primary" type="submit" [textContent]="recipe === undefined ? 'Ajouter' : 'Enregistrer'" [disabled]="recipeForm.invalid"></button>
+    <div class="btn-group">
+      <button class="btn btn-success" type="submit" [textContent]="idRecipe === undefined ? 'Ajouter la recette' : 'Enregistrer la recette'" [disabled]="recipeForm.invalid"></button>
+      <button class="btn btn-danger" type="button" (click)="supprimerRecette()" *ngIf="idRecipe!==undefined">Supprimer</button>
+      <button class="btn btn-primary" type="button" (click)="clearForm()">Clear</button>
     </div>
   </div>
 </form>
