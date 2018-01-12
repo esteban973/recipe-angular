@@ -10,8 +10,6 @@ export class RecipesItemComponent implements OnInit {
 
   @Input()
   recipe: Recipe;
-  @Input()
-  indexRecipe: number;
 
   constructor() { }
 
