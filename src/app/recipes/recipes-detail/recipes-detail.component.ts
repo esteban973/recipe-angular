@@ -14,14 +14,12 @@ export class RecipesDetailComponent implements OnInit {
 
   recipe: Recipe;
 
-  id: string;
+  id: number;
 
   recipeTmp: Recipe;
 
-  constructor(private recipeService: RecipeService,
-    private routeActivated: ActivatedRoute,
-    private flashService: FlashService,
-    private router: Router) {
+  constructor(private recipeService: RecipeService, private routeActivated: ActivatedRoute, private flashService: FlashService, private router: Router) {
+
   }
 
   ngOnInit() {
@@ -29,13 +27,7 @@ export class RecipesDetailComponent implements OnInit {
     this.routeActivated.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
-        const itemRef = this.recipeService.getRecipe(this.id);
-        itemRef.snapshotChanges().subscribe(action => {
-          console.log(action.type);
-          console.log(action.key);
-          console.log(action.payload.val());
-          this.recipe =  action.payload.val();
-        });
+        this.recipe = this.recipeService.getRecipe(this.id);
       }
     );
 

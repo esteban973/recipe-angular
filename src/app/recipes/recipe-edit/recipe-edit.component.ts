@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
 export class RecipeEditComponent implements OnInit {
 
 
-  idRecipe: string;
+  idRecipe: number;
 
   recipeForm: FormGroup;
 
@@ -45,17 +45,15 @@ export class RecipeEditComponent implements OnInit {
               ingredients : []
             });
           } else {
-            const recipeSub = this.recipeService.getRecipe(this.idRecipe).valueChanges().subscribe((recipe: Recipe) => {
-              this.recipeForm.patchValue({
-                recipeName : recipe.name,
-                recipeDescription : recipe.description,
-                recipeUrl : recipe.imagePath
-              });
-              for (const ingredient of recipe.ingredients) {
-                this.addNewIngredient(ingredient.ingredient.name, ingredient.qty);
-            }
+            const recipe: Recipe = this.recipeService.getRecipe(this.idRecipe);
+            this.recipeForm.patchValue({
+              recipeName : recipe.name,
+              recipeDescription : recipe.description,
+              recipeUrl : recipe.imagePath
             });
-
+            for (const ingredient of recipe.ingredients) {
+                  this.addNewIngredient(ingredient.ingredient.name, ingredient.qty);
+            }
           }
         }
       );
@@ -103,16 +101,16 @@ export class RecipeEditComponent implements OnInit {
       newRecipe.addIngredients(ingredientForm.ingredientName, ingredientForm.ingredientQty);
     }
     if (this.idRecipe === undefined) {
-      this.recipeService.createRecipe(newRecipe);
+      this.idRecipe = this.recipeService.addRecipe(newRecipe);
     } else {
-      //this.recipeService.updateRecipe(this.idRecipe, newRecipe);
+      this.recipeService.updateRecipe(this.idRecipe, newRecipe);
     }
     this.router.navigate(['/recipes', this.idRecipe]);
   }
 
 
   supprimerRecette() {
-    //this.recipeService.deleteRecipe(this.idRecipe);
+    this.recipeService.deleteRecipe(this.idRecipe);
     this.flashService.flashBag.next('La recette a bien supprimée');
     this.router.navigate(['/recipes']);
   }

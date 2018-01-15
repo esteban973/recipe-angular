@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from '../../models/recipe.model';
 import { RecipeService } from './../recipe.service';
-import { Observable } from 'rxjs/Observable';
-import { AngularFireList } from 'angularfire2/database';
 
 @Component({
   selector: 'app-recipes-list',
@@ -11,13 +9,13 @@ import { AngularFireList } from 'angularfire2/database';
 })
 export class RecipesListComponent implements OnInit {
 
-  recipes:  Observable<any>;
+  recipes: Array<Recipe>;
 
   constructor(private recipeService: RecipeService) {
   }
 
   ngOnInit() {
-    this.recipes = this.recipeService.getRecipeList().valueChanges();
+    this.recipes = this.recipeService.recipes;
   }
 
 

@@ -1,4 +1,4 @@
-<a class="list-group-item clearfix" [routerLink]="['/recipes', recipe.$key]" >
+<a class="list-group-item clearfix" [routerLink]="['/recipes', indexRecipe]" >
   <div class="pull-left"> 
   <h4 class="list-group-item-heading">{{recipe.name}}</h4>
   <p class="list-group-item-text">{{recipe.description}}</p>
@@ -6,8 +6,4 @@
   <div class="pull-right">
       <img class='' [src]="recipe.imagePath" width='50' height='50'/>
   </div>
-
-{{recipe | json }}
-
-
 </a>
